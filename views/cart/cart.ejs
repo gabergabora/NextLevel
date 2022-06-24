@@ -1,0 +1,97 @@
+<%- include("../layout/navbar") -%>
+
+<div class="cart">
+   <% if(user.cart.length > 0){%>
+    <p class="title">سلة التسوق</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="color: #fff">#</th>
+                <th>الصورة</th>
+                <th>الاسم</th>
+                <th>السعر</th>
+                <th>الكمية</th>
+                <th>السعر النهائي</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% for (let i = 0; i < user.cart.length; i++) {%>
+                <tr>
+                    <td style="color: #f92647"><%= i+1%></td>
+                    <td><img src="/upload/images/<%= user.cart[i].image%>" alt=""></td>
+                    <td><%= user.cart[i].name%></td>
+                    <td style="direction: ltr"><%= user.cart[i].price%> <span>IQD</span></td>
+                    <td class="qty"><%= user.cart[i].qty%>
+                      <div class="btns">
+                          <form action="/cart/plus/<%= user.cart[i].name%>?_method=PUT" method="post">
+                            <button><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="12" height="12" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                              </svg></button>
+                          </form>
+                          <form action="/cart/min/<%= user.cart[i].name%>?_method=PUT" method="post">
+                            <button><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-minus" width="12" height="12" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                              </svg></button>
+                          </form>
+                      </div>
+                    </td>
+                    <td style="direction: ltr"><span style="color: #fff" id="final"><%= user.cart[i].price * user.cart[i].qty%></span> <span>IQD</span></td>
+                </tr>
+            <% } %>
+
+            <tr>
+                <td id="total_price" colspan="6"></td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <div class="user-info-cart">
+        <p>معلومات التوصيل</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>المحافظة</th>
+                    <th>المنطقة</th>
+                    <th>رقم الهاتف</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr>
+                    <td><%= user.location%></td>
+                    <td><%= user.area%></td>
+                    <td><%= user.phone%></td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="alert">اذا كنت تريد تغيير معلومات التوصيل يجب تغييرها من صفحة حسابك الخاصة</p>
+        <form action="/cart/confirm" method="post">
+            <button class="confirm">تاكيد الشراء</button>
+        </form>
+    </div>
+
+
+    <script>
+        var price = document.querySelectorAll("#final")
+        var arr = []
+        for (let i = 0; i < price.length; i++) {
+            arr.push(Number(price[i].innerHTML))
+        }
+
+        const total = arr.reduce((a, b) => a + b)
+
+        document.getElementById("total_price").innerHTML =  total + ' ' + '<span>' + 'IQD' + '</span>' + ' ' + ' : السعر الكامل'
+    </script>
+    
+    <%} else {%>
+        <p class="title">سلة التسوق فارغة</p>
+    <%} %>
+</div>
+
+<%- include("../layout/footer") -%>

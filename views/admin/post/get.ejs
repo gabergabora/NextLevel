@@ -1,0 +1,67 @@
+<%- include("../../layout/admin-navbar") -%>
+
+    <% if(err.length> 0) {%>
+        <script>
+            Swal.fire(
+                'لا يمكن مشاركة تعليق فارغ',
+                '',
+                'error'
+            )
+        </script>
+        <%}%>
+
+            <div class="post-get">
+                <% if(data.image !=="none" ){%>
+                    <div class="image">
+                        <img src="/upload/images/<%= data.image%>" alt="...">
+                    </div>
+                    <div class="inline-s">
+                        <p class="icon">
+                            <ion-icon name="person-circle">
+                            </ion-icon>
+                        </p>
+                        <div class="grid">
+                            <p class="title-name">
+                                <%= data.authorName%>
+                            </p>
+                            <br>
+                            <p class="title">
+                                <%= data.title%>
+                            </p>
+                        </div>
+                    </div>
+
+                    <p class="des">
+                        <%= data.des%>
+                    </p>
+                    <h3><span>
+                            <%= data.Date%>
+                        </span></h3>
+                    <%} else {%>
+                        <center>
+                            <br><br><br>
+                            <p class="title">
+                                <%= data.title%>
+                            </p>
+                            <p class="des">
+                                <%= data.des%>
+                            </p>
+                            <h3><span>
+                                    <%= data.Date%>
+                                </span></h3>
+                        </center>
+                        <%} %>
+                            <br>
+
+                            <div class="btns">
+                                <form action="/post/admin/accept/<%= data.id%>?_method=PUT" method="post">
+                                    <button>قبول المنشور</button>
+                                </form>
+
+                                <form action="/post/admin/delete/<%= data.id%>?_method=DELETE" method="post">
+                                    <button>حذف المنشور</button>
+                                </form>
+                            </div>
+            </div>
+
+            <%- include("../../layout/admin-footer") -%>

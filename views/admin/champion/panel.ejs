@@ -1,0 +1,30 @@
+<%- include("../../layout/admin-navbar") -%>
+
+<div class="champion">
+    <button class="add-btn" id="add-btn" onclick="window.location.href='/champion/admin/add'"><svg xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24"
+        stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+    </svg></button>
+    <% champion.forEach(data => {%>
+        <div class="champion-card" onclick="window.location.href='/champion/admin/get/<%= data.id%>'">
+            
+            <img src="/upload/images/<%= data.image%>">
+            <div class="about">
+                <p><%= data.title%></p>
+                <p class="smaller">عدد الاعبين : <%= data.players.length%>/<%= data.limit%></p>
+                <p class="smaller">تبدأ البطولة بتاريخ : <span style="text-shadow: 2px 2px rgba(0, 0, 0, 0.622);"><%= data.start_date%></span></p>
+            </div>
+            <% if(data.isStock == true){%>
+                <p class="underline">التسجيل مفتوح !</p>
+            <%} else {%>
+                <p class="underline">التسجيل مغلق</p>
+            <%} %>
+            <p class="price"><%= data.price%><span>IQD</span></p>
+        </div>
+    <%}) %>
+</div>
+
+<%- include("../../layout/admin-footer") -%>

@@ -1,0 +1,91 @@
+<%- include("../layout/navbar") -%>
+<div class="store">
+    <% category.forEach(cat => {%>
+        <br>
+        <div class="cat-preview" data-aos="fade-up"  data-aos-delay="100">
+            <p class="title-preview"><%= cat.name%></p>
+        <button class="view-more" onclick="window.location.href='/store/category/<%= cat.name%>'">مشاهدة المزيد</button>
+        </div>
+        
+        <div class="slider owl-carousel owl-theme" data-aos="zoom-out"  data-aos-delay="500">
+            <% products.forEach(data => {%>
+                <% if(data.category == cat.name){%>
+                    <div class="card" data-aos="fade-down" data-aos-delay="900" onclick="window.location.href='/store/product/<%= data.id%>'">
+                        <img src="/upload/images/<%= data.image%>" alt="">
+                        <p class="title"><%= data.name%></p>
+                        <p class="minDes"><%= data.minDes%></p>
+                        <p class="price"><%= data.price%> IQD</p>
+                    </div>
+                <%} %>
+                <%}) %>
+        </div>
+       
+    <%}) %>
+    <script>
+        $(".slider").owlCarousel({
+            responsive: {
+                0: {
+                    items: 2, //10 items above 1000px browser width
+                    itemsDesktop: [1000, 5], //5 items between 1000px and 901px
+                    itemsDesktopSmall: [900, 3], // betweem 900px and 601px
+                    itemsTablet: [600, 2], //2 items between 600 and 0
+                    itemsMobile: true, // itemsMobile disabled - inherit from itemsTablet option
+                    autoplay: true, //
+                    loop: true,
+                    autoplayTimeout: 2000,
+                    autoplayHoverPause: true,
+                    navigation : false 
+                },
+
+                1000: {
+                    items: 6, //10 items above 1000px browser width
+                    itemsDesktop: [1000, 5], //5 items between 1000px and 901px
+                    itemsDesktopSmall: [900, 3], // betweem 900px and 601px
+                    itemsTablet: [600, 2], //2 items between 600 and 0
+                    itemsMobile: true, // itemsMobile disabled - inherit from itemsTablet option
+                    autoplay:true,
+                    loop: true,
+                    autoplayTimeout: 1500,
+                    autoplayHoverPause: true,
+                },
+
+                2000: {
+                    items: 8, //10 items above 1000px browser width
+                    itemsDesktop: [1000, 5], //5 items between 1000px and 901px
+                    itemsDesktopSmall: [900, 3], // betweem 900px and 601px
+                    itemsTablet: [600, 2], //2 items between 600 and 0
+                    itemsMobile: true, // itemsMobile disabled - inherit from itemsTablet option
+                    autoplay:true,
+                    loop: true,
+                    autoplayTimeout: 1500,
+                    autoplayHoverPause: true,
+                },
+
+                2500: {
+                    items: 10, //10 items above 1000px browser width
+                    itemsDesktop: [1000, 5], //5 items between 1000px and 901px
+                    itemsDesktopSmall: [900, 3], // betweem 900px and 601px
+                    itemsTablet: [600, 2], //2 items between 600 and 0
+                    itemsMobile: true, // itemsMobile disabled - inherit from itemsTablet option
+                    autoplay:true,
+                    loop: true,
+                    autoplayTimeout: 1500,
+                    autoplayHoverPause: true,
+                },
+
+                3000: {
+                    items: 12, //10 items above 1000px browser width
+                    itemsDesktop: [1000, 5], //5 items between 1000px and 901px
+                    itemsDesktopSmall: [900, 3], // betweem 900px and 601px
+                    itemsTablet: [600, 2], //2 items between 600 and 0
+                    itemsMobile: true, // itemsMobile disabled - inherit from itemsTablet option
+                    autoplay:true,
+                    loop: true,
+                    autoplayTimeout: 1500,
+                    autoplayHoverPause: true,
+                }
+            }
+        })
+    </script>
+</div>
+<%- include("../layout/footer") -%>

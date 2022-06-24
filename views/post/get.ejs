@@ -1,0 +1,137 @@
+<%- include("../layout/navbar") -%>
+
+    <% if(err.length> 0) {%>
+        <script>
+            Swal.fire(
+                'لا يمكن مشاركة تعليق فارغ',
+                '',
+                'error'
+            )
+        </script>
+        <%}%>
+
+            <div class="post-get">
+                <% if(data.image !=="none" ){%>
+                    <div class="inline-s">
+                        <p class="icon" data-aos="fade-up">
+                            <ion-icon name="person-circle">
+                            </ion-icon>
+                        </p>
+                        <div class="grid">
+                            <p class="title-name" data-aos="fade-up" data-aos-delay="100">
+                                <%= data.authorName%>
+                            </p>
+                            <br>
+                            <p class="title" data-aos="fade-up" data-aos-delay="200">
+                                <%= data.title%>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img data-aos="zoom-out" data-aos-delay="500" src="/upload/images/<%= data.image%>" alt="...">
+                    </div>
+
+                    <p class="des" data-aos="zoom-in" data-aos-delay="800">
+                        <%= data.des%>
+                    </p>
+                    <h3><span>
+                            <%= data.Date%>
+                        </span></h3>
+                    <%} else {%>
+                        <div class="none-image">
+                            <div class="info">
+                                <p class="icon" data-aos="fade-up">
+                                    <ion-icon name="person-circle">
+                                    </ion-icon>
+                                </p>
+                                <div class="grid">
+                                    <p class="name" data-aos="fade-up" data-aos-delay="200"><%= data.authorName%></p>
+                                <p class="title"  data-aos="fade-up" data-aos-delay="400"><%= data.title%></p>
+                                </div>
+                            </div>
+
+                            <p class="des" data-aos="zoom-in" data-aos-delay="600"><%= data.des%></p>
+                        </div>
+                        <%} %>
+                            <br>
+                            <% if(user){%>
+                                <% if(user.isAdmin==true){%>
+                                    <div class="btns">
+                                        <form  action="/post/admin/delete/<%= data.id%>?_method=DELETE" method="post">
+                                            <button>حذف المنشور</button>
+                                        </form>
+                                    </div>
+                                    <%} %>
+                                        <%} %>
+                                            <br>
+                                            <div class="comments">
+                                                <% if(user){%>
+                                                    <% if(filter==false){%>
+                                                        <div class="add-comment" data-aos="zoom-in" data-aos-delay="300">
+                                                            <form action="/post/add/comment/<%= data.id%>?_method=PUT"
+                                                                method="post">
+                                                                <label>
+                                                                    <ion-icon name="person-circle"></ion-icon>
+                                                                </label>
+                                                                <textarea maxlength="5000" type="text" name="comment"
+                                                                    placeholder="تعليق"></textarea>
+                                                                <button>اضافة التعليق</button>
+                                                            </form>
+                                                        </div>
+                                                        <%}%>
+                                                            <%} %>
+
+                                                                <div class="comments-grid">
+
+                                                                    <% data.comments.forEach(comment=> {%>
+                                                                        <div class="comment">
+                                                                            <% if(user){%>
+                                                                                <% if(comment.authorID==user.id){%>
+                                                                                    <form
+                                                                                        action="/post/delete/comment/<%= data.id%>?_method=PUT"
+                                                                                        method="post">
+                                                                                        <button>حذف</button>
+                                                                                    </form>
+                                                                                    <%}%>
+
+                                                                                        <% if(comment.authorID
+                                                                                            !==user.id &&
+                                                                                            user.isAdmin==true){%>
+                                                                                            <form
+                                                                                                action="/post/delete/admin/comment/<%= data.id%>/<%= comment.name%>/<%= comment.authorID%>?_method=PUT"
+                                                                                                method="post">
+                                                                                                <button>حذف</button>
+                                                                                            </form>
+                                                                                            <%}%>
+                                                                                                <%} %>
+                                                                                                    <div class="inline" data-aos="zoom-in">
+                                                                                                        <p
+                                                                                                            class="icon1">
+                                                                                                            <ion-icon
+                                                                                                                name="person-circle">
+                                                                                                            </ion-icon>
+                                                                                                        </p>
+                                                                                                        <span
+                                                                                                            class="span-name">
+                                                                                                            <%=
+                                                                                                                comment.name%>
+                                                                                                        </span>
+                                                                                                    </div>
+                                                                                                    <br>
+                                                                                                    <p
+                                                                                                        class="comment-content" data-aos="zoom-in">
+                                                                                                        <%=
+                                                                                                            comment.comment%>
+                                                                                                    </p>
+                                                                        </div>
+                                                                        <br>
+                                                                        <%}) %>
+                                                                </div>
+
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <br>
+            </div>
+
+            <%- include("../layout/footer") -%>

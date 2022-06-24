@@ -1,0 +1,38 @@
+<%- include("../../layout/admin-navbar") -%>
+
+<% if(suc.length> 0) {%>
+    <script>
+        Swal.fire(
+            'تم قبول المنشور بنجاح',
+            '',
+            'success'
+        )
+    </script>
+    <%}%>
+
+    <% if(del.length> 0) {%>
+        <script>
+            Swal.fire(
+                'تم حذف المنشور بنجاح',
+                '',
+                'success'
+            )
+        </script>
+        <%}%>
+
+<div class="posts">
+    <p class="title" style="text-align:center">المنشورات الجديدة</p>
+    <% posts.forEach(data =>{%>
+        <div data-aos="zoom-in" class="post-card" onclick="window.location.href='/post/admin/get/<%= data.id%>'">
+            <span class="icon"><ion-icon name="person-circle"></ion-icon></span>
+            <div class="info">
+                <p class="name"><%= data.authorName%></p>
+                <p class="title"><%= data.title%></p>
+                <p class="date"><%= data.Date%></p>
+                <p class="des"><%= data.des %></p>
+            </div>
+        </div>
+    <%}) %>
+</div>
+
+<%- include("../../layout/admin-footer") -%>

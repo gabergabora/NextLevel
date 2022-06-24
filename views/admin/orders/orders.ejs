@@ -1,0 +1,74 @@
+<%- include("../../layout/admin-navbar") -%>
+
+<% if(accept.length > 0){%>
+    <script>
+        Swal.fire(
+            'تم قبول الطلب',
+            '',
+            'success'
+        )
+    </script>
+<%} %>
+
+<% if(reject.length > 0){%>
+    <script>
+        Swal.fire(
+            'تم رفض الطلب',
+            '',
+            'success'
+        )
+    </script>
+<%} %>
+
+<% if(done.length > 0){%>
+    <script>
+        Swal.fire(
+            'تم نقل الطلب الى قائمة الطلبات الجاهزة للشحن',
+            '',
+            'success'
+        )
+    </script>
+<%} %>
+
+<% if(reject_from_accept.length > 0){%>
+    <script>
+        Swal.fire(
+            'تم نقل الطلب الى الطلبات المرفوضة',
+            '',
+            'success'
+        )
+    </script>
+<%} %>
+
+<% if(done_order.length > 0){%>
+    <script>
+        Swal.fire(
+            'تم اكمال الطلب و نقله الى سجل الفواتير',
+            '',
+            'success'
+        )
+    </script>
+<%} %>
+
+<p class="title-admin-orders-new"><%= title%></p>
+<div class="admin-orders-new">
+    <% orders.forEach(data => {%>
+        <div class="order-card" onclick="window.location.href='/admin/orders/get/<%= data.id%>'">
+            <% if(data.isChampion == false){%>
+                <span class="card-icon"><ion-icon name="cart"></ion-icon></span>
+            <%} else {%>
+                <span class="card-icon"><ion-icon name="game-controller"></ion-icon></span>
+            <%} %>
+            <div class="order-info">
+                <p>الاسم : <%= data.name%></p>
+                <p>التاريخ : <%= data.Date%></p>
+                <p>المحافظة : <%= data.location%></p>
+            </div>
+            <% if(data.isAccept == false && data.isReject == false){%>
+                <span class="order-new-tag">طلب جديد</span>
+            <%} %>
+        </div>
+    <%}) %>
+</div>
+
+<%- include("../../layout/admin-footer") -%>

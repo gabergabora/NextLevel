@@ -1,0 +1,49 @@
+<%- include("../layout/navbar") -%>
+
+<% if(work_suc.length > 0){%>
+    <script>
+        Swal.fire(
+            'تم ارسال طلبك بنجاح',
+            'سوف يتم مراجعة طلبك و التواصل معك',
+            'success'
+        )
+    </script>
+    <%} %>
+
+<div class="work">
+    <p class="title">استثمر <span>معنا</span></p>
+    <p>تتيح <span>نيكست لفل</span> فرصة الاستثمار والانماء لكبار المستثمرين فرص استثمارية في وكالات نيكست لفل</p>
+    <p>وتشجيع المستثمرين على الدخول معها في <span>شراكات حقيقية</span> من خلال مشاريع استثمارية كبرى</p>
+    <p>ونؤمن ان النجاح في هذا المجال ينبع من الابتكار والدراية والخبرة</p>
+    <br>
+    <p class="title2">تعرف على وكالات <span>نيكست لفل</span></p>
+    <br>
+    <p class="eng">1- <span>Nextlevel</span> Gaming Center | صالات <span>نيكست لفل</span> لرياضة الالعاب الالكترونية </p>
+    <p class="eng">2- <span>Graffiti</span> Juice For Snack's & Drinks | <span>جرافيتي</span> جوس للحلويات والمشروبات</p>
+    <p class="eng">1- <span>Nextlevel</span> Gaming Center | صالات <span>نيكست لفل</span> لرياضة الالعاب الالكترونية </p>
+    <p class="eng">1- <span>Nextlevel</span> Gaming Center | صالات <span>نيكست لفل</span> لرياضة الالعاب الالكترونية </p>
+    <br>
+    <p class="title2">لماذا الاستثمار في وكالات <span>نيكست لفل؟</span></p>
+    <p>- حصول المستثمر على <span>معلومات كاملة</span> بأدارة المشروع من حيث : </p>
+    <p>- يمنح المستثمر الخبرة ويتم تدريب الطاقم بصورة مستمرة , اضافةً الى التطوير المستمر في المنتجات .</p>
+    <p>- <span>الترويج والتسويق</span> الدائم للوكالة مع دعم الوكالة من كافة الجوانب اللوجستية . </p>
+    <p>- تحويل ألافكار الناجحة إلى <span>واقع</span> بكل الطرق الممكنة . </p>
+    <p>- زيادة حجم سوق الفكرة <span>والاهتمام بالاشخاص المٌفكرين</span> .</p>
+    <p>- مسار <span>ارباح جيد</span> ونسب النمو المتوقعة من وراء توسعة انشطة الوكالة . </p>
+    <p>- متابعة الوكالة من <span>قبل المسؤولين</span> بشكل دائم ومستمر على مدار السنة .</p>
+
+    <br>
+    <p class="title2" style="border: none;">للتقديم على <span>الاستثمار</span> معنا</p>
+    <form action="/work/new" method="post">
+        <input name="name" value="<%= user.name%>" placeholder="الاسم" required>
+        <input name="phone" value="<%= user.phone%>" placeholder="رقم الهاتف" required>
+        <input name="email" value="<%= user.email%>" placeholder="البريد الالكتروني" required>
+        <input name="location" value="<%= user.location%>" placeholder="موقعك الحالي" required>
+        <input name="brand_location" placeholder="فرع الوكالة" required>
+        <textarea name="note" cols="30" maxlength="5000" placeholder="ملاحظات" rows="10"></textarea>
+        <br>
+        <button>ارسال المعلومات</button>
+    </form>
+</div>
+
+<%- include("../layout/footer") -%>

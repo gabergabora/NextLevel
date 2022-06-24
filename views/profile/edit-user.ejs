@@ -1,0 +1,45 @@
+<%- include("../layout/navbar") -%>
+
+<div class="edit-user">
+    <div class="panel" data-aos="zoom-out">
+        <form action="/profile/info/edit?_method=PUT" method="post">
+            <br>
+            <p>تعديل معلومات الحساب</p>
+            <br>
+            <label for="edit"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#f92647" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="8.5" cy="8.5" r="1" fill="currentColor" />
+                <path d="M4 7v3.859c0 .537 .213 1.052 .593 1.432l8.116 8.116a2.025 2.025 0 0 0 2.864 0l4.834 -4.834a2.025 2.025 0 0 0 0 -2.864l-8.117 -8.116a2.025 2.025 0 0 0 -1.431 -.593h-3.859a3 3 0 0 0 -3 3z" />
+              </svg> </label> <input required type="text" maxlength="30" name="name" value="<%= user.name%>" placeholder="الاسم">
+              <br>
+              <label for="edit"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#f92647" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="12" cy="11" r="3" />
+                <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
+              </svg> </label> <input required type="text" maxlength="50" name="location" value="<%= user.location%>" placeholder="المحافظة">
+              <br>
+              <label for="edit"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-2" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#f92647" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <line x1="18" y1="6" x2="18" y2="6.01" />
+                <path d="M18 13l-3.5 -5a4 4 0 1 1 7 0l-3.5 5" />
+                <polyline points="10.5 4.75 9 4 3 7 3 20 9 17 15 20 21 17 21 15" />
+                <line x1="9" y1="4" x2="9" y2="17" />
+                <line x1="15" y1="15" x2="15" y2="20" />
+              </svg> </label> <input required type="text" maxlength="50" name="area" value="<%= user.area%>" placeholder="المنطقة">
+              <br>
+              <label for="edit"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#f92647" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
+              </svg> </label> <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              type = "number"
+              maxlength = "11" minlength="11" required name="phone" value="<%= user.phone%>" placeholder="رقم الهاتف">
+              <br>
+              <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="36" height="36" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M5 12l5 5l10 -10" />
+              </svg></button>
+        </form>
+    </div>
+</div>
+
+<%- include("../layout/footer") -%>

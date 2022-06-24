@@ -1,0 +1,131 @@
+<%- include("../../layout/admin-navbar") -%>
+
+<% if(err.length > 0) {%>
+    <script>
+        Swal.fire(
+            'خطا في اضافة القسم',
+            'يوجد قسم بهذا الاسم مسبقا حاول مجددا مع اسم اخر',
+            'error'
+        )
+    </script>    
+<%}%>
+
+<% if(del.length > 0) {%>
+    <script>
+        Swal.fire(
+            'تم حذف القسم بنجاح',
+            'لقد تم حذف القسم بنجاح ان كنت تريد اعادته اضف قسم بنفس اسمه و سوف يتضمن جميع خصائص القسم المحذوف',
+            'success'
+        )
+    </script>    
+<%}%>
+
+<% if(edit_err.length > 0) {%>
+    <script>
+        Swal.fire(
+            'يوجد قسم بهذا الاسم',
+            'لا يمكن عمل قسمين بنفس الاسم اعد المحاولة مع اسم اخر',
+            'error'
+        )
+    </script>
+<%}%>
+
+    <div class="admin-category">
+        <p class="title">الاقسام</p>
+
+        <table class="table container table-striped table-hover">
+            <button class="add-btn" id="add-btn" onclick="openPanel()"><svg xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                </svg></button>
+
+            <button class="add-btn" id="x-btn" onclick="closePanel()" style="display: none"><svg
+                    xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24"
+                    viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg></button>
+            <thead>
+                <tr>
+                    <th style="color: #fff!important;">#</th>
+                    <th>القسم</th>
+                    <th>تعديل</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="add" id="add">
+                    <form action="/admin/category/add" method="POST">
+                        <td></td>
+                        <td><input autocomplete="off" name="name" type="text"></td>
+                        <td><button><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check"
+                                    width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M5 12l5 5l10 -10" />
+                                </svg></button></td>
+                        <td></td>
+                    </form>
+                </tr>
+               <% for (let i = 0; i < category.length; i++) {%>
+                <tr>
+                    <td style="color: #f92647!important;"><%= i+1%></td>
+                    <td><%= category[i].name%></td>
+                    <td><button class="btns-edit-del">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+                          </svg>
+                    </button></td>
+                    <td><form action="/admin/category/delete/<%= category[i].id%>?_method=delete" method="post">
+                        <button class="btns-edit-del">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <line x1="4" y1="7" x2="20" y2="7" />
+                                <line x1="10" y1="11" x2="10" y2="17" />
+                                <line x1="14" y1="11" x2="14" y2="17" />
+                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                              </svg>
+                        </button>
+                    </form></td>
+
+                </tr>
+            <%} %>
+            </tbody>
+        </table>
+
+        <div class="pop-form-edit" data-aos="flip-up">
+            <p>تعديل قسم - <span><%= data.name%></span></p>
+            <form action="/admin/category/edit/<%= data.id%>?_method=PUT" method="post">
+                <input type="text" autocomplete="off" value="<%= data.name%>" name="name" placeholder="الاسم">
+            <br>
+            <button class="edit-done">تعديل</button>
+            </form>
+            <br>
+            <button class="cancel" onclick="window.location.href='/admin/category'">رجوع</button>
+
+        </div>
+    </div>
+
+    <script>
+        function openPanel() {
+            document.getElementById("add").style.display = "contents"
+            document.getElementById("add-btn").style.display = "none"
+            document.getElementById("x-btn").style.display = "inline"
+        }
+
+        function closePanel() {
+            document.getElementById("add").style.display = "none"
+            document.getElementById("add-btn").style.display = "inline"
+            document.getElementById("x-btn").style.display = "none"
+        }
+    </script>
+
+    <%- include("../../layout/admin-footer") -%>

@@ -1,0 +1,109 @@
+<%- include("../layout/navbar") -%>
+
+<% if(data.start == false){%>
+<div class="get-champion">
+    <p class="title" data-aos="fade-down"><%= data.title%></p>
+    <div class="image" data-aos="fade-down" data-aos-delay="300">
+        <img src="/upload/images/<%= data.image%>" alt="">
+    </div>
+    <div class="about"  data-aos="fade-down" data-aos-delay="500">
+        <p class="des"><%= data.des%></p>
+    </div>
+    <p class="price"  data-aos="fade-down">سعرالتسجيل : <%= data.price%><span>IQD</span></p>
+
+    <% if(user){%>
+        <% if(data.isStock == true && detect == false){%>
+            <center><button onclick="window.location.href='/champion/<%= data.id%>/add-player'">سجل الان</button></center>
+        <%} %>
+
+        <% if(detect == true){%>
+            <p class="login-alert">انت مسجل في هذه البطولة مسبقا</p>
+        <%} %>
+        <br>
+        <br>
+    <%} else {%>
+        <p class="login-alert">يجب عليك تسجيل الدخول للتسجيل بالبطولة</p>
+    <%} %>
+</div>
+<%} %>
+
+<% if(data.start == true && data.finshed == false){%>
+    <div class="champion-start">
+        <p class="title-start">بدأت بطولة <span> <%= data.title%> </span></p>
+        <div class="round">
+            <% for (let i=0; i < data.rounds.length; i++) {%>
+            <% if(i == data.rounds.length-1){%>
+                <p class="title">الفائز</p>
+            <%} else {%>
+                <p class="title">الجولة <%= i+1%></p>
+            <%} %>
+            <table class="table container">
+                <thead>
+                    <tr>
+                        <th>اسم اللاعب</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% data.players.forEach(player=> {%>
+                            <% if(i+1 == player.stage){%>
+                                <tr id="soc">
+                                    <td class="name">
+                                        <%= player.name%>
+                                    </td>
+                                </tr>
+                        <%} %>
+                    <%}) %>
+                </tbody>
+            </table>
+            <br>
+            <%} %>
+        </div>
+</div>
+<%} %>
+
+<% if(data.finshed == true){%>
+    <div class="get-champion">
+        <p class="title" data-aos="fade-down">انتهت البطولة بفوز اللاعب <span><%= data.winner%></span></p>
+        <div class="image" data-aos="fade-down" data-aos-delay="300">
+            <img src="/upload/images/<%= data.image%>" alt="">
+        </div>
+        <div class="about"  data-aos="fade-down" data-aos-delay="500">
+            <p class="des"><%= data.des%></p>
+        </div>
+    </div>
+
+    <div class="champion-start">
+        <div class="round">
+            <% for (let i=0; i < data.rounds.length; i++) {%>
+            <% if(i == data.rounds.length-1){%>
+                <p class="title">الفائز</p>
+            <%} else {%>
+                <p class="title">الجولة <%= i+1%></p>
+            <%} %>
+            <table class="table container">
+                <thead>
+                    <tr>
+                        <th>اسم اللاعب</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% data.players.forEach(player=> {%>
+                            <% if(i+1 == player.stage){%>
+                                <tr id="soc">
+                                    <td class="name">
+                                        <%= player.name%>
+                                    </td>
+                                </tr>
+                        <%} %>
+                    <%}) %>
+                </tbody>
+            </table>
+            <br>
+            <%} %>
+            <br>
+        </div>
+</div>
+<%} %>
+<%- include("../layout/footer") -%>

@@ -1,0 +1,35 @@
+<%- include('../layout/navbar') -%>
+
+<div class="index">
+    <div class="text-1">
+        <p data-aos="fade-up" data-aos-duration="4000" data-aos-delay="100" class="title">عن <img src="/images/logo.png" alt="logo"> : </p>
+        <p data-aos="fade-right" data-aos-delay="200"><span>نيكست لفل</span> هو مجتمع يرحب بجميع</span> اللاعبين من المبتدئين في<span class="underline"> عالم الالعاب وكذلك اللاعبين والفرق المحترفين .</p>
+        <p data-aos="fade-right" data-aos-delay="400">يمكن لكل لاعب<span> ان يشعر بالانتقال الى مستوى</span> جديد مع نيكست لفل</span> </p>
+        <p data-aos="fade-right" data-aos-delay="600"><span class="underline">شاهد فرقك المفضلة تتنافس في مناطق العرض المخصصة لدينا </span>، او العب مع اصدقائك على اجهزه <span>الكمبيوتر</span> عاليه المواصفات وأحدث أجهزة <span>الكونسل</span> .</p>
+        <p data-aos="fade-right" data-aos-delay="700">ابدأ رحلة الرياضات الالكترونية الخاصة بك من خلال بطولاتنا المحلية.</p>
+        <p data-aos="fade-right" data-aos-delay="900">اجعل المناسبات الخاصة <span>اكثر اثاره</span> من خلال <span>استأجار  ساحاتنا </span> لاعياد الميلاد ونزهات  الفريق<span class="underline"> او استخدم غرفنا الاحترافية للتدريب والمتعة </span></p>
+        <img data-aos="fade-down" data-aos-delay="1500" class="display-img" src="/images/pcs1.jpg" alt="">
+    </div>
+</div>
+
+<div class="apple-watch">
+    <div class="menu">
+       <% if(!user){%>
+        <p>يجب عليك تسجيل الدخول من خلال هاتفك لاستخدام التطبيق على Apple Watch</p>
+       <%} else {%>
+        <br>
+        <a href="/profile/posts">حسابي</a>
+        <br>
+        <br>
+        <a href="/post/posts">الاسئلة و المنشورات</a>
+        <br>
+        <br>
+        <a href="/cart">سلة التسوق</a>
+        <br>
+        <br>
+        <img src="/images/logo.png" alt="logo">
+        <%} %>
+    </div>
+</div>
+
+<%- include('../layout/footer') -%>

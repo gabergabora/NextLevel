@@ -1,0 +1,38 @@
+<%- include("../layout/navbar") -%>
+
+<div class="new-post container">
+    <form action="/post/new" method="post" enctype="multipart/form-data">
+        <input type="text" data-aos="fade-down" data-aos-delay="100" maxlength="300" max="300" name="title" placeholder="عنوان المنشور">
+        <br>
+        <textarea name="des" data-aos="fade-down" data-aos-delay="200" maxlength="15000" max="15000" placeholder="الوصف"></textarea>
+
+        <br>
+
+        <div class="custom-file-input mb-3 diplay-none" data-aos="fade-down" data-aos-delay="400">
+            <label for="formFile" class="form-label">ادراج صورة (اختياري)</label>
+            <input class="form-control" name="image" type="file" id="formFile">
+          </div>
+          <br>
+
+          <button>نشر</button>
+          <br>
+          <br>
+    </form>
+</div>
+
+<script>
+    var uploadField = document.getElementById("formFile");
+
+uploadField.onchange = function() {
+    if(this.files[0].size > 2097152){
+        Swal.fire(
+            'حجم الصورة كبير!',
+            'اقصى حجم صورة مسموح هو 2mb',
+            'error'
+        )
+       this.value = "";
+    };
+};
+</script>
+
+<%- include("../layout/footer") -%>

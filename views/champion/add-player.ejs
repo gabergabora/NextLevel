@@ -1,0 +1,45 @@
+<%- include("../layout/navbar") -%>
+
+<div class="add-player" data-aos="zoom-in">
+    <p class="title">معلومات التسجيل بالبطولة</p>
+    <div class="player-card">
+        <br>
+        <p class="title">معلومات التذكرة</p>
+        <img src="/images/logo.png" alt="">
+        <br>
+            <p><span>الاسم : </span> <%= user.name%></p>
+            <p><span>رقم الهاتف : </span> <%= user.phone%></p>
+            <p><span>المحافظة : </span> <%= user.location%></p>
+            <p><span>البطولة المسجلة : </span> <%= data.title%></p>
+            <p><span>تسلسل اللاعب : </span> <%= data.players.length+1%></p>
+    </div>
+    <br><br>
+    <p class="title">معلومات التوصيل</p>
+    <table class="table container">
+        <thead>
+            <tr>
+                <th>المحافظة</th>
+                <th>المنطقة</th>
+                <th>رقم الهاتف</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><%= user.location%></td>
+                <td><%= user.area%></td>
+                <td><%= user.phone%></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p class="title">سعر البطاقة : <%= data.price%><span>IQD</span></p>
+    <p class="login-alert">يمكنك تغيير معلومات التوصيل او معلوماتك الشخصية من الصفحة الخاصة بحسابك</p>
+    <form action="/champion/<%= data.id%>/add-player" method="post">
+        <center><button>تاكيد الطلب</button></center>
+    </form>
+    <br>
+    <br>
+</div>
+
+<%- include("../layout/footer") -%>

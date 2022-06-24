@@ -1,0 +1,22 @@
+<%- include("../layout/navbar") -%>
+
+<% if(user){%>
+    <button class="posts-new-post" onclick="window.location.href='/post/new'">انشاء منشور</button>
+<%} else {%>
+    <span>عليك تسجيل الدخول لانشاء اي منشور</span>
+<%} %>
+<div class="posts">
+    <% posts.forEach(data =>{%>
+        <div data-aos="zoom-in" class="post-card" onclick="window.location.href='/post/get/<%= data.id%>'">
+            <span class="icon"><ion-icon name="person-circle"></ion-icon></span>
+            <div class="info">
+                <p class="name"><%= data.authorName%></p>
+                <p class="title"><%= data.title%></p>
+                <p class="date"><%= data.Date%></p>
+                <p class="des"><%= data.des %></p>
+            </div>
+        </div>
+    <%}) %>
+</div>
+
+<%- include("../layout/footer") -%>

@@ -1,0 +1,161 @@
+<%- include("../../layout/admin-navbar") -%>
+
+<div class="order">
+    <% if(data.isChampion == false){%>
+        <p class="title">معلومات الطلبية</p>
+    <div class="info">
+        <p>الاسم : <%= data.name%></p>
+        <p>المحافظة : <%= data.location%></p>
+        <p>المنطقة : <%= data.area%></p>
+        <p>رقم الهاتف : <%= data.phone%></p>
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="color: #fff;">#</th>
+                <th>الصورة</th>
+                <th>الاسم</th>
+                <th>السعر</th>
+                <th>الكمية</th>
+                <th>السعر النهائي</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% for (let i = 0; i < data.order.length; i++) {%>
+                <tr>
+                    <td style="color: #f92647"><%= i+1%></td>
+                    <td><img src="/upload/images/<%= data.order[i].image%>"></td>
+                    <td><%= data.order[i].name%></td>
+                    <td style="direction: ltr"><%= data.order[i].price%> <span>IQD</span></td>
+                    <td><%= data.order[i].qty%></td>
+                    <td style="direction: ltr"><span style="color: #fff" id="final"><%= data.order[i].qty * data.order[i].price %></span> <span>IQD</span></td>
+
+                </tr>
+            <%} %>
+            <tr>
+                <td id="total_price" style="direction: ltr" colspan="6"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <% if(user.isAdmin == true){%>
+        <div class="order-contorls">
+            <% if(data.isAccept == false && data.isReject == false){%>
+                <form action="/admin/orders/accept/<%= data.id%>?_method=PUT" method="post">
+                    <button>قبول الطلب</button>
+                </form>
+
+                <form action="/admin/orders/reject/<%= data.id%>?_method=PUT" method="post">
+                    <button>رفض الطلب</button>
+                </form>
+            <%} %>
+
+            <% if(data.isReject == true){%>
+                <form action="/admin/orders/accept-from-reject/<%= data.id%>?_method=PUT" method="post">
+                    <button>قبول الطلب</button>
+                </form>
+            <%} %>
+
+            <% if(data.isAccept == true && data.isComming == false && data.isDone == false){%>
+                <form action="/admin/orders/comming/<%= data.id%>?_method=PUT" method="post">
+                    <button>شحن الطلب</button>
+                </form>
+
+                <form action="/admin/orders/reject-from-accept/<%= data.id%>?_method=PUT" method="post">
+                    <button>رفض الطلب</button>
+                </form>
+            <%}%>
+
+            <% if(data.isComming == true && data.isDone == false){%>
+                <form action="/admin/orders/done/<%= data.id%>?_method=PUT" method="post">
+                    <button>نقل الى قائمة الفواتير (اكتمال الطلب)</button>
+                </form>
+            <%} %>
+        </div>
+    <%} %>
+    <%} %>
+
+    <% if(data.isChampion == true){%>
+        <p class="title">معلومات الطلبية</p>
+    <div class="info">
+        <p>الاسم : <%= data.name%></p>
+        <p>المحافظة : <%= data.location%></p>
+        <p>المنطقة : <%= data.area%></p>
+        <p>رقم الهاتف : <%= data.phone%></p>
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="color: #fff;">#</th>
+                <th>الصورة</th>
+                <th>الاسم</th>
+                <th>السعر</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% for (let i = 0; i < data.order.length; i++) {%>
+                <tr>
+                    <td style="color: #f92647"><%= i+1%></td>
+                    <td><img src="/upload/images/<%= data.order[i].image%>"></td>
+                    <td><%= data.order[i].name%></td>
+                    <td style="direction: ltr"><%= data.order[i].price%> <span>IQD</span></td>
+                </tr>
+            <%} %>
+        </tbody>
+    </table>
+
+    <% if(user.isAdmin == true){%>
+        <div class="order-contorls">
+            <% if(data.isAccept == false && data.isReject == false){%>
+                <form action="/admin/orders/accept/<%= data.id%>?_method=PUT" method="post">
+                    <button>قبول الطلب</button>
+                </form>
+
+                <form action="/admin/orders/reject/<%= data.id%>?_method=PUT" method="post">
+                    <button>رفض الطلب</button>
+                </form>
+            <%} %>
+
+            <% if(data.isReject == true){%>
+                <form action="/admin/orders/accept-from-reject/<%= data.id%>?_method=PUT" method="post">
+                    <button>قبول الطلب</button>
+                </form>
+            <%} %>
+
+            <% if(data.isAccept == true && data.isComming == false && data.isDone == false){%>
+                <form action="/admin/orders/comming/<%= data.id%>?_method=PUT" method="post">
+                    <button>شحن الطلب</button>
+                </form>
+
+                <form action="/admin/orders/reject-from-accept/<%= data.id%>?_method=PUT" method="post">
+                    <button>رفض الطلب</button>
+                </form>
+            <%}%>
+
+            <% if(data.isComming == true && data.isDone == false){%>
+                <form action="/admin/orders/done/<%= data.id%>?_method=PUT" method="post">
+                    <button>نقل الى قائمة الفواتير (اكتمال الطلب)</button>
+                </form>
+            <%} %>
+        </div>
+    <%} %>
+    <%} %>
+</div>
+
+<script>
+    var price = document.querySelectorAll("#final")
+    var arr = []
+    for (let i = 0; i < price.length; i++) {
+        arr.push(Number(price[i].innerHTML))
+    }
+
+    const total = arr.reduce((a, b) => a + b)
+
+    document.getElementById("total_price").innerHTML =  total + ' ' + '<span>' + 'IQD' + '</span>' + ' ' + ' : السعر الكامل'
+</script>
+
+<%- include("../../layout/admin-footer") -%>

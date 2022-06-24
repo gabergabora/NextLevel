@@ -1,0 +1,17 @@
+<%- include("../../layout/admin-navbar") -%>
+
+<p class="title-admin-orders-new">طلبات الاستثمار</p>
+<div class="admin-orders-new">
+    <% work.forEach(data => {%>
+        <div class="order-card" onclick="window.location.href='/work/admin/get/<%= data.id%>'">
+                <span class="card-icon"><ion-icon name="business"></ion-icon></span>
+            <div class="order-info">
+                <p>الاسم : <%= data.name%></p>
+                <p>التاريخ : <%= data.Date%></p>
+                <p>المحافظة : <%= data.location%></p>
+            </div>
+        </div>
+    <%}) %>
+</div>
+
+<%- include("../../layout/admin-footer") -%>

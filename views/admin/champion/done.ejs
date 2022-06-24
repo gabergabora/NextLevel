@@ -1,0 +1,13 @@
+<%- include("../../layout/navbar") -%>
+
+<div class="champion-done-confirm">
+    <p>هل انت متاكد من انهاء البطولة بوفز اللاعب <span><%= winner%> ؟</span></p>
+    <form action="/champion/admin/<%= data.id%>/<%= winner%>/<%= winnerID%>/done?_method=PUT" method="post">
+        <button>تاكيد انهاء البطولة</button>
+        <br>
+        <br>
+        <br>
+    </form>
+</div>
+
+<%- include("../../layout/admin-footer") -%>

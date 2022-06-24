@@ -1,0 +1,104 @@
+<%- include("../layout/navbar") -%>
+
+<div class="profile">
+    <div class="information only-pc">
+        <p class="icon" data-aos="fade-down" data-aos-delay="100"><ion-icon name="person-circle"></ion-icon></p>
+        <p class="title" data-aos="fade-down" data-aos-delay="200">معلومات الحساب</p>
+        <p class="info" data-aos="fade-down" data-aos-delay="300"><span>الاسم : </span> <%=user.name%></p>
+        <p class="info" data-aos="fade-down" data-aos-delay="400"><span>الايميل : </span> <%=user.email%></p>
+        <p class="info" data-aos="fade-down" data-aos-delay="500"><span>المحافظة : </span> <%=user.location%></p>
+        <p class="info" data-aos="fade-down" data-aos-delay="600"><span>المنطقة : </span> <%=user.area%></p>
+        <p class="info" data-aos="fade-down" data-aos-delay="700"><span>رقم الهاتف : </span> <%=user.phone%></p>
+        <button data-aos="fade-down" data-aos-delay="800" onclick="window.location.href='/profile/info/edit'">تعديل المعلومات</button>
+        <br>
+        <button data-aos="fade-down" style="background-color: darkred;" class="btn btn-danger" data-aos-delay="800" onclick="window.location.href='/profile/delete/<%= user.id%>'">حذف الحساب</button>
+    </div>
+    
+    <div class="contorls" data-aos="zoom-in">
+        <a href="/profile/orders">الطلبات</a>
+        <a href="/profile/posts">المنشورات</a>
+        <a href="/profile/champions">البطولات</a>
+    </div>
+    <div class="comp">
+        <% if(orders == true){%>
+            <% if(order.length == 0){%>
+                <p class="alert">ليس لديك طلبات مسبقة</p>
+            <%}%>
+            <% order.forEach(data => {%>
+                <div class="order-card" data-aos="zoom-in" onclick="window.location.href='/profile/orders/get/<%= data.id%>'">
+                    <% if(data.isChampion == false){%>
+                        <span class="card-icon"><ion-icon name="cart"></ion-icon></span>
+                    <%} else {%>
+                        <span class="card-icon"><ion-icon name="game-controller"></ion-icon></span>
+                    <%} %>
+                    <div class="order-info">
+                        <p>التاريخ : <%= data.Date%></p>
+                        <p>المحافظة : <%= data.location%></p>
+                    </div>
+                    <% if(data.isAccept == false && data.isReject == false){%>
+                        <span class="order-wait-tag">بانتظار الموافقة</span>
+                    <%} %>
+                    <% if(data.isAccept == false && data.isReject == true){%>
+                        <span class="order-reject-tag">تم رفض الطلب</span>
+                    <%} %>
+                    <% if(data.isAccept == true && data.isReject == false && data.isComming == false && data.isDone == false){%>
+                        <span class="order-accept-tag">تم قبول الطلب</span>
+                    <%} %>
+
+                    <% if(data.isComming == true && data.isDone == false){%>
+                        <span class="order-del-tag">جاري توصيل الطلب</span>
+                    <%} %>
+
+                    <% if(data.isDone == true){%>
+                        <span class="order-done-tag">تم التوصيل</span>
+                    <%} %>
+                </div>
+            <%})%>
+        <%} %>
+
+        <% if(posts == true){%>
+            <% if(post.length == 0){%>
+                <p class="alert" data-aos="zoom-in">ليس لديك منشورات مسبقة</p>
+            <%}%>
+            <div class="posts">
+                <% post.forEach(data =>{%>
+                    <div class="post-card" data-aos="zoom-in" onclick="window.location.href='/post/get/<%= data.id%>'">
+                        <span class="icon"><ion-icon name="person-circle"></ion-icon></span>
+                        <div class="info">
+                            <p class="name"><%= data.authorName%></p>
+                            <p class="title"><%= data.title%></p>
+                            <p class="date"><%= data.Date%></p>
+                            <p class="des-onprofile"><%= data.des %></p>
+                        </div>
+                    </div>
+                <%}) %>
+            </div>
+        <%} %>
+
+        <% if(champions == true){%>
+            <div class="champion">
+                <% if(champion.length == 0){%>
+                    <p class="alert" data-aos="zoom-in">لم تشارك ببطولات مسبقة</p>
+                <%}%>
+                <% champion.forEach(data => {%>
+                    <div data-aos="zoom-in" class="champion-card" onclick="window.location.href='/champion/get/<%= data.id%>'">
+                        <img src="/upload/images/<%= data.image%>">
+                        <div class="about">
+                            <p><%= data.title%></p>
+                            <p class="smaller">عدد الاعبين : <%= data.players.length%>/<%= data.limit%></p>
+                            <p class="smaller">تبدأ البطولة بتاريخ : <span style="text-shadow: 2px 2px rgba(0, 0, 0, 0.622);"><%= data.start_date%></span></p>
+                        </div>
+                        <% if(data.isStock == true){%>
+                            <p class="underline">التسجيل مفتوح !</p>
+                        <%} else {%>
+                            <p class="underline">التسجيل مغلق</p>
+                        <%} %>
+                        <p class="price"><%= data.price%><span>IQD</span></p>
+                    </div>
+                <%}) %>
+            </div>
+        <%} %>
+    </div>
+</div>
+
+<%- include("../layout/footer") -%>

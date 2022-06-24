@@ -1,0 +1,19 @@
+<%- include("../layout/navbar") -%>
+
+<div class="products-store store">
+    <p class="title-page" data-aos="zoom-in" data-aos-delay="100"><%= cat%></p>
+
+    <div class="cards">
+        <% products.forEach(data => {%>
+                <div data-aos="zoom-out-up" data-aos-delay="400" class="card" onclick="window.location.href='/store/product/<%= data.id%>'">
+                    <img src="/upload/images/<%= data.image%>" alt="">
+                    <p class="title"><%= data.name%></p>
+                    <p class="minDes"><%= data.minDes%></p>
+                    <p class="price"><%= data.price%> IQD</p>
+                </div>
+            <%}) %>
+    </div>
+</div>
+
+
+<%- include("../layout/footer") -%>

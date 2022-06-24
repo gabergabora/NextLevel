@@ -1,0 +1,10 @@
+<%- include('../layout/navbar') -%>
+
+<div class="submit_delete">
+    <p>هل انت متاكد من انك تريد حذف حسابك؟</p>
+    <form action="/profile/delete/<%= user.id%>?_method=delete" method="post">
+        <button>تاكيد</button>
+    </form>
+</div>
+
+<%- include('../layout/footer') -%>

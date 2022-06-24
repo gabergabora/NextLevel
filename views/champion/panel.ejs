@@ -1,0 +1,22 @@
+<%- include("../layout/navbar") -%>
+
+<div class="champion">
+    <% champion.forEach(data => {%>
+        <div class="champion-card" data-aos="fade-down" data-aos-delay="100" onclick="window.location.href='/champion/get/<%= data.id%>'">
+            <img src="/upload/images/<%= data.image%>">
+            <div class="about">
+                <p><%= data.title%></p>
+                <p class="smaller">عدد الاعبين : <%= data.players.length%>/<%= data.limit%></p>
+                <p class="smaller">تبدأ البطولة بتاريخ : <span style="text-shadow: 2px 2px rgba(0, 0, 0, 0.622);"><%= data.start_date%></span></p>
+            </div>
+            <% if(data.isStock == true){%>
+                <p class="underline">التسجيل مفتوح !</p>
+            <%} else {%>
+                <p class="underline">التسجيل مغلق</p>
+            <%} %>
+            <p class="price"><%= data.price%><span>IQD</span></p>
+        </div>
+    <%}) %>
+</div>
+
+<%- include("../layout/footer") -%>

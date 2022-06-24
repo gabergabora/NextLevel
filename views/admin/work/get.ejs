@@ -1,0 +1,25 @@
+<%- include("../../layout/admin-navbar") -%>
+
+<div class="order">
+    <p class="title">طلب استثمار</p>
+    <table class="table">
+        <thead>
+            <th>الاسم</th>
+            <th>الموقع</th>
+            <th>الوكالة</th>
+            <th>رقم الهاتف</th>
+            <th>الايميل</th>
+        </thead>
+        <tbody>
+            <td><%= work.name%></td>
+            <td><%= work.location%></td>
+            <td><%= work.brand_location%></td>
+            <td><%= work.phone%></td>
+            <td><%= work.email%></td>
+        </tbody>
+    </table>
+    <p class="note" style="width: 95%; color: #fff; text-align: center; font-size: 18px; margin-top: 40px">
+        <%= work.note%>
+    </p>
+</div>
+<%- include("../../layout/admin-footer") -%>

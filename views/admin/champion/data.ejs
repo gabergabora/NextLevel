@@ -1,0 +1,180 @@
+<%- include("../../layout/admin-navbar") -%>
+
+    <% if(data.start==false){%>
+        <div class="champion-data">
+            <p class="title">
+                <%= data.title%>
+            </p>
+            <div class="des">
+                <p>العدد الاقصى للاعبين : <span>
+                        <%= data.limit%>
+                    </span></p>
+                <p>عدد اللاعبين المشاركين : <span>
+                        <%= data.players.length%>
+                    </span></p>
+                <p>حالة التسجيل :
+                    <% if(data.isStock==true){%>
+                        <span>مفتوح</span>
+                        <br>
+                        <form action="/champion/admin/<%= data.id%>/close?_method=PUT" method="post">
+                            <button class="close">غلق التسجيل</button>
+                        </form>
+                        <%} else {%>
+                            <span>مغلق</span>
+                            <form action="/champion/admin/<%= data.id%>/open?_method=PUT" method="post">
+                            <button class="open">فتح التسجيل</button>
+                            </form>
+                            <%}%>
+
+                            <button class="open" onclick="window.location.href='/champion/admin/edit/<%= data.id%>'">تعديل معلومات البطولة</button>
+                </p>
+
+                <p class="table-title">اللاعبين المشاركين</p>
+                <table class="table container table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th style="color: #fff!important;">#</th>
+                            <th>اسم اللاعب</th>
+                            <th>تاريخ التسجيل</th>
+                            <th>حذف</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let i=0; i < data.players.length; i++) {%>
+                            <tr>
+                                <td style="color: #f92647!important;">
+                                    <%= i+1%>
+                                </td>
+                                <td>
+                                    <%= data.players[i].name%>
+                                </td>
+                                <td>
+                                    <%= data.players[i].Date%>
+                                </td>
+                                <td>
+                                    <form action="/champion/admin/<%= data.id%>/remove/<%= data.players[i].userID%>?_method=PUT" method="post">
+                                        <button class="btns-edit-del">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-trash" width="20" height="20"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <line x1="4" y1="7" x2="20" y2="7" />
+                                                <line x1="10" y1="11" x2="10" y2="17" />
+                                                <line x1="14" y1="11" x2="14" y2="17" />
+                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </td>
+
+                            </tr>
+                            <%} %>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <form action="/champion/admin/<%= data.id%>/start?_method=PUT" method="post">
+                    <center><button class="start">ابدا البطولة</button></center>
+                </form>
+                <br>
+                <br>
+            </div>
+        </div>
+        <%}%>
+
+        <% if(data.start == true && data.finshed == false){ %>
+
+            <div class="champion-start">
+                    <div class="round">
+                        <% for (let i=0; i < data.rounds.length; i++) {%>
+                        <% if(i == data.rounds.length-1){%>
+                            <p class="title">الفائز</p>
+                        <%} else {%>
+                            <p class="title">الجولة <%= i+1%></p>
+                        <%} %>
+                        <table class="table container">
+                            <thead>
+                                <tr>
+                                    <th>اسم اللاعب</th>
+                                    <th>تقدم الاعب</th>
+                                    <th>ارجاع الاعب</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <% data.players.forEach(player=> {%>
+                                        <% if(i+1 == player.stage){%>
+                                            <tr id="soc">
+                                                <td class="name">
+                                                    <%= player.name%>
+                                                </td>
+                                                <td><form action="/champion/admin/<%= data.id%>/next-stage/<%= player.userID%>?_method=PUT" method="post">
+                                                    <button class="next-btn">تقديم اللاعب</button>
+                                                </form></td>
+                                                <td><form action="/champion/admin/<%= data.id%>/back-stage/<%= player.userID%>?_method=PUT" method="post">
+                                                    <button class="back-btn">ارجاع اللاعب</button>
+                                                </form></td>
+                                            </tr>
+                                    <%} %>
+                                <%}) %>
+                            </tbody>
+                        </table>
+                        <br>
+                        <%} %>
+                        <br>
+                        <button class="finish" onclick="window.location.href='/champion/admin/<%= data.id%>/done'">انهاء البطولة</button>
+                    </div>
+            </div>
+            <%} %>
+
+            <% if(data.finshed == true){%>
+                <div class="get-champion">
+                    <p class="title" data-aos="fade-down">انتهت البطولة بفوز اللاعب <span><%= data.winner%></span></p>
+                    <div class="image" data-aos="fade-down" data-aos-delay="300">
+                        <img src="/upload/images/<%= data.image%>" alt="">
+                    </div>
+                    <div class="about"  data-aos="fade-down" data-aos-delay="500">
+                        <p class="des"><%= data.des%></p>
+                    </div>
+            
+                </div>
+
+                <div class="champion-start">
+                    <div class="round">
+                        <% for (let i=0; i < data.rounds.length; i++) {%>
+                        <% if(i == data.rounds.length-1){%>
+                            <p class="title">الفائز</p>
+                        <%} else {%>
+                            <p class="title">الجولة <%= i+1%></p>
+                        <%} %>
+                        <table class="table container">
+                            <thead>
+                                <tr>
+                                    <th>اسم اللاعب</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <% data.players.forEach(player=> {%>
+                                        <% if(i+1 == player.stage){%>
+                                            <tr id="soc">
+                                                <td class="name">
+                                                    <%= player.name%>
+                                                </td>
+                                            </tr>
+                                    <%} %>
+                                <%}) %>
+                            </tbody>
+                        </table>
+                        <br>
+                        <%} %>
+                        <br>
+                    </div>
+            </div>
+            <%} %>
+
+
+                <%- include("../../layout/admin-footer") -%>
