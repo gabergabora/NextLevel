@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const MONGO_URI = "mongodb://localhost:27017/NextLevel"
+const MONGODB_URL = process.env.MONGODB_URL
 
-mongoose.connect(MONGO_URI, (err) => {
+mongoose.connect(MONGODB_URL, (err) => {
     if(err){
         console.log(err);
     } else {
